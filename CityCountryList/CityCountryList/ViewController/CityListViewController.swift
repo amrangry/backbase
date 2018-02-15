@@ -51,15 +51,18 @@ class CityListViewController: BaseViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "showMap" {
+            let mapVC = segue.destination as! MapViewController
+            mapVC.cityInfo = sender as? CityModel
+        }
     }
-    */
+ 
 
 }
 
@@ -130,19 +133,8 @@ extension CityListViewController : UISearchResultsUpdating {
 extension CityListViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
          tableView.deselectRow(at: indexPath, animated: true)
-        
-        let cityInfo = filtered?[indexPath.row]
-        
-        let mapVC = self.storyboard?.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
-        
-        mapVC.cityInfo = cityInfo
-        
-       // self.navigationController?.pushViewController(mapVC, animated: true)
-        
-        mapVC.modalPresentationStyle = .popover
-        mapVC.modalTransitionStyle = .crossDissolve
-        self.present(mapVC, animated: true, completion: nil)
-        
+         let cityInfo = filtered?[indexPath.row]
+          self.performSegue(withIdentifier: "showMap", sender: cityInfo)
     }
 }
 

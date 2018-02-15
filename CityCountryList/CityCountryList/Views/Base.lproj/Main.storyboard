@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3pn-BK-Def">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3pn-BK-Def">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -23,6 +23,10 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="CityListViewController" id="BYZ-38-t0r" customClass="CityListViewController" customModule="CityCountryList" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aCU-9W-ic9"/>
+                        <viewControllerLayoutGuide type="bottom" id="WKN-Vj-Btc"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -89,23 +93,22 @@
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="d9v-28-Zk6"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="ebj-Y0-DZh"/>
-                                    <outlet property="prefetchDataSource" destination="BYZ-38-t0r" id="t0c-Zl-9Yi"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Aoz-K8-G9M" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3vd-vK-SO6"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Aoz-K8-G9M" secondAttribute="trailing" id="Abd-q5-8eC"/>
-                            <constraint firstItem="Aoz-K8-G9M" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kT5-N8-ISS"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Aoz-K8-G9M" secondAttribute="bottom" id="q1r-mM-UMN"/>
+                            <constraint firstItem="Aoz-K8-G9M" firstAttribute="top" secondItem="aCU-9W-ic9" secondAttribute="bottom" id="3vd-vK-SO6"/>
+                            <constraint firstAttribute="trailing" secondItem="Aoz-K8-G9M" secondAttribute="trailing" id="Abd-q5-8eC"/>
+                            <constraint firstItem="Aoz-K8-G9M" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="kT5-N8-ISS"/>
+                            <constraint firstItem="WKN-Vj-Btc" firstAttribute="top" secondItem="Aoz-K8-G9M" secondAttribute="bottom" id="q1r-mM-UMN"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="p2O-M0-IhH"/>
                     <connections>
                         <outlet property="cityTableView" destination="Aoz-K8-G9M" id="TEP-hp-gvv"/>
                         <outlet property="searchDisplayController" destination="zk4-XR-Xi9" id="xpW-3Y-f9z"/>
+                        <segue destination="cwL-Zo-qyr" kind="presentation" identifier="showMap" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="XhW-o8-RlW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -124,6 +127,10 @@
         <scene sceneID="8bG-iZ-0kh">
             <objects>
                 <viewController storyboardIdentifier="MapViewController" id="cwL-Zo-qyr" customClass="MapViewController" customModule="CityCountryList" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="q6w-pm-flQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="mvS-il-mjI"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xY5-GX-JXv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -196,17 +203,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="9c1-Z7-jDp" firstAttribute="leading" secondItem="iXa-bW-L9u" secondAttribute="leading" id="1Zq-OU-a1T"/>
-                            <constraint firstItem="yAz-L8-HEC" firstAttribute="leading" secondItem="iXa-bW-L9u" secondAttribute="leading" constant="10" id="42X-Y4-zVU"/>
-                            <constraint firstItem="iXa-bW-L9u" firstAttribute="trailing" secondItem="9c1-Z7-jDp" secondAttribute="trailing" id="8nZ-GL-Rdg"/>
+                            <constraint firstItem="9c1-Z7-jDp" firstAttribute="leading" secondItem="xY5-GX-JXv" secondAttribute="leading" id="1Zq-OU-a1T"/>
+                            <constraint firstItem="yAz-L8-HEC" firstAttribute="leading" secondItem="xY5-GX-JXv" secondAttribute="leading" constant="10" id="42X-Y4-zVU"/>
+                            <constraint firstAttribute="trailing" secondItem="9c1-Z7-jDp" secondAttribute="trailing" id="8nZ-GL-Rdg"/>
                             <constraint firstItem="GMy-De-uc7" firstAttribute="centerY" secondItem="yAz-L8-HEC" secondAttribute="centerY" id="Rs9-6X-n5j"/>
-                            <constraint firstItem="yAz-L8-HEC" firstAttribute="top" secondItem="iXa-bW-L9u" secondAttribute="top" constant="15" id="jxD-dD-m8j"/>
-                            <constraint firstItem="iXa-bW-L9u" firstAttribute="trailing" secondItem="GMy-De-uc7" secondAttribute="trailing" constant="25" id="lB8-rF-pee"/>
-                            <constraint firstItem="iXa-bW-L9u" firstAttribute="bottom" secondItem="9c1-Z7-jDp" secondAttribute="bottom" id="lyZ-Ok-O6P"/>
+                            <constraint firstItem="yAz-L8-HEC" firstAttribute="top" secondItem="q6w-pm-flQ" secondAttribute="bottom" constant="15" id="jxD-dD-m8j"/>
+                            <constraint firstAttribute="trailing" secondItem="GMy-De-uc7" secondAttribute="trailing" constant="25" id="lB8-rF-pee"/>
+                            <constraint firstItem="mvS-il-mjI" firstAttribute="top" secondItem="9c1-Z7-jDp" secondAttribute="bottom" id="lyZ-Ok-O6P"/>
                             <constraint firstItem="GMy-De-uc7" firstAttribute="leading" secondItem="yAz-L8-HEC" secondAttribute="trailing" constant="10" id="rkH-Mv-EHw"/>
-                            <constraint firstItem="9c1-Z7-jDp" firstAttribute="top" secondItem="iXa-bW-L9u" secondAttribute="top" id="vdW-ST-G8K"/>
+                            <constraint firstItem="9c1-Z7-jDp" firstAttribute="top" secondItem="q6w-pm-flQ" secondAttribute="bottom" id="vdW-ST-G8K"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="iXa-bW-L9u"/>
                     </view>
                     <connections>
                         <outlet property="cityLabel" destination="J6C-fW-3br" id="Xy9-nn-Pwm"/>
