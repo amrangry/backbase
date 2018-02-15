@@ -26,11 +26,16 @@ class CityListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+       
         
-         dataSource = readDataFromJsonFile()
-         filtered = dataSource
-         cityTableView.reloadData()
-        
+        self.showActivityIndicator(view: self.view, withOpaqueOverlay: true)
+        DispatchQueue.main.async {
+            self.dataSource = self.readDataFromJsonFile()
+            self.filtered = self.dataSource
+            self.cityTableView.reloadData()
+            
+            self.hideActivityIndicator(view: self.view)
+        }
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -71,18 +76,24 @@ extension CityListViewController {
     // MARK: - Helper Methods
     
     func readDataFromJsonFile() -> [CityModel] {
+        
+        
+        
+       // self.showActivityIndicator(view: self.view, withOpaqueOverlay: true)
+
+        
+        
         let filePath = Bundle.main.path(forResource: "cities", ofType: "json")
         let contentData = FileManager.default.contents(atPath: filePath!)
         let jsonArray = try! JSONSerialization.jsonObject(with: contentData!) as! [JSONDictionary]
-        
-        
-        
-        
         
         var cityList = [CityModel]()
         jsonArray.forEach{ cityList.append(CityModel(json: $0)!) }
         debugPrint(cityList.count) // 209557
         cityList = cityList.sorted { $0.name < $1.name }
+        
+       // self.hideActivityIndicator(view: self.view)
+        
         
         return cityList
     }

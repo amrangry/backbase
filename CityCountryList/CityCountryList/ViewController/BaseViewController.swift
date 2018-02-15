@@ -9,6 +9,11 @@
 import UIKit
 
 class BaseViewController: UIViewController {
+    
+    
+
+    
+    
     // MARK: - ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,4 +26,8 @@ class BaseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+  
 }
+
+
+
