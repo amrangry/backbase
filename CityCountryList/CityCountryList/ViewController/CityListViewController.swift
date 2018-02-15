@@ -25,15 +25,11 @@ class CityListViewController: BaseViewController {
     // MARK: - ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-       
-        
         self.showActivityIndicator(view: self.view, withOpaqueOverlay: true)
         DispatchQueue.main.async {
             self.dataSource = self.readDataFromJsonFile(fileName: "cities")
             self.filtered = self.dataSource
             self.cityTableView.reloadData()
-            
             self.hideActivityIndicator(view: self.view)
         }
         
@@ -44,33 +40,19 @@ class CityListViewController: BaseViewController {
         
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    
     // MARK: - Navigation
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "showMap" {
             let mapVC = segue.destination as! MapViewController
             mapVC.cityInfo = sender as? CityModel
         }
     }
- 
-
 }
-
 
 extension CityListViewController {
     // MARK: - Helper Methods
@@ -80,17 +62,13 @@ extension CityListViewController {
         let filePath = Bundle.main.path(forResource: fileName, ofType: "json")
         let contentData = FileManager.default.contents(atPath: filePath!)
         let jsonArray = try! JSONSerialization.jsonObject(with: contentData!) as! [JSONDictionary]
-        
         var cityList = [CityModel]()
         jsonArray.forEach{ cityList.append(CityModel(json: $0)!) }
         debugPrint(cityList.count) // 209557
         cityList = cityList.sorted { $0.name < $1.name }
-        
-        
-        
+    
         return cityList
     }
-    
     
     func filterList(withSearchkey searchKey:String!) -> [CityModel]? {
         
@@ -101,25 +79,18 @@ extension CityListViewController {
                     return range.location != NSNotFound
                 })
         
-        
-        
         // Filter the results
         filtered = dataSource?.filter { $0.name.lowercased().contains(searchKey.lowercased()) }
         
         return filtered
         
     }
-    
-    
-
 }
 
 extension CityListViewController : UISearchResultsUpdating {
     
     // Called when the search bar's text or scope has changed or when the search bar becomes first responder.
-    // @available(iOS 8.0, *)
     func updateSearchResults(for searchController: UISearchController) {
-        // If we haven't typed anything into the search bar then do not filter the results
         guard let searchText = searchController.searchBar.text?.trimmingCharacters(in: CharacterSet.whitespaces), searchText.isEmpty == false else{
             filtered = dataSource
             self.cityTableView.reloadData()
@@ -127,12 +98,10 @@ extension CityListViewController : UISearchResultsUpdating {
         }
         
         filtered =  filterList(withSearchkey: searchText)
-        
         self.cityTableView.reloadData()
         
     }
 }
-
 
 extension CityListViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -152,12 +121,8 @@ extension CityListViewController :UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CityTableViewCell", for: indexPath ) as! CityTableViewCell
-        
-    
         let cityInfo = filtered?[indexPath.row]
-        
-        cell.cityLabel.text = cityInfo?.name// + ", " + cityInfo.country
-        
+        cell.cityLabel.text = cityInfo?.name
         guard let country = cityInfo?.country  else {
             return cell
         }
