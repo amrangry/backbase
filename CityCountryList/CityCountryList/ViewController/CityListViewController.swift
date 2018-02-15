@@ -18,7 +18,7 @@ class CityListViewController: BaseViewController {
     
     // MARK: - Varibles
     let searchController = UISearchController(searchResultsController: nil)
-    fileprivate var dataSource:[CityModel]? = []
+     var dataSource:[CityModel]? = []
     fileprivate var filtered:[CityModel]? = []
     
     
@@ -30,7 +30,7 @@ class CityListViewController: BaseViewController {
         
         self.showActivityIndicator(view: self.view, withOpaqueOverlay: true)
         DispatchQueue.main.async {
-            self.dataSource = self.readDataFromJsonFile()
+            self.dataSource = self.readDataFromJsonFile(fileName: "cities")
             self.filtered = self.dataSource
             self.cityTableView.reloadData()
             
@@ -75,15 +75,9 @@ class CityListViewController: BaseViewController {
 extension CityListViewController {
     // MARK: - Helper Methods
     
-    func readDataFromJsonFile() -> [CityModel] {
+    func readDataFromJsonFile( fileName:String!) -> [CityModel] {
         
-        
-        
-       // self.showActivityIndicator(view: self.view, withOpaqueOverlay: true)
-
-        
-        
-        let filePath = Bundle.main.path(forResource: "cities", ofType: "json")
+        let filePath = Bundle.main.path(forResource: fileName, ofType: "json")
         let contentData = FileManager.default.contents(atPath: filePath!)
         let jsonArray = try! JSONSerialization.jsonObject(with: contentData!) as! [JSONDictionary]
         
@@ -92,7 +86,6 @@ extension CityListViewController {
         debugPrint(cityList.count) // 209557
         cityList = cityList.sorted { $0.name < $1.name }
         
-       // self.hideActivityIndicator(view: self.view)
         
         
         return cityList
