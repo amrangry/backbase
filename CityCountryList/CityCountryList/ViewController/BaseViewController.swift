@@ -21,7 +21,7 @@ class BaseViewController: UIViewController {
             let overlay = UIView()
             overlay.frame =  CGRect.init(x: 0.0, y: 0.0, width: view.frame.width, height: view.frame.height)
             overlay.layer.backgroundColor = UIColor.init(red: 48/255, green: 47/255, blue: 44/255, alpha: 1.0).cgColor
-            overlay.alpha = 0.3
+            overlay.alpha = 0.7
             overlay.tag = activityIndicatorOverlayViewTag
             overlay.center = superView.center
             overlay.isHidden = false

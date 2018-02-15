@@ -57,6 +57,22 @@ class CityCountryListTests: XCTestCase {
     }
     
     
+    func testSearchResultForWrongInputs()  {
+        // 1. given
+        let fileName = "sameleTestFile"
+        
+        // 2. when
+        let array = cityListControllerUnderTest.readDataFromJsonFile(fileName: fileName)
+        
+        cityListControllerUnderTest.dataSource = array
+        
+        let filteredArray = cityListControllerUnderTest.filterList(withSearchkey: "test Wrong")
+        
+        // 3. then
+        XCTAssertEqual(filteredArray?.count,0, "filter is working wrong result must be 0")
+    }
+    
+    
     func testSearchResultForACities()  {
         
         // 1. given
